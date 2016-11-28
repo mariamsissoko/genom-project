@@ -3,7 +3,7 @@ MAIN - INTERFACE GRAPHIQUE
 """
 
 import sys, os
-from background import *
+from mod_background import *
 # choix de la version de python
 version = sys.version_info[0]
 
