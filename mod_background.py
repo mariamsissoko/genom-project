@@ -4,6 +4,7 @@ Created on Thu Nov 24 13:58:47 2016
 
 @authors: Maria Virginia Ruiz & Mariam Sissoko 
 """
+import matplotlib.pyplot as plt
 import os
 path_dir = os.getcwd()  
 
@@ -42,7 +43,7 @@ Comptage des kmers d'une sequence donnée
 Input :Dictionnaire avec tous les kmers possibles, k , sequence d'ADN
 Output:Dictionnaire qui a pour clé un kmer et comme clé associé le nombre de fois ou le kmer apparait
 '''
-def find_kmers(dico, k,string ):
+def find_kmers(dico, k, string ):
     kmers =dict(dico)
     n = len(string)
     for i in range(0, n-k+1):
@@ -53,7 +54,7 @@ def find_kmers(dico, k,string ):
 '''
 Proportion de kmers dans un genome donne
 '''
-def proportion_of_kmers(nb_kmers,dic_kmers):
+def proportion_of_kmers(nb_kmers, dic_kmers):
     kmers_prop=dict(dic_kmers)
     for i in dic_kmers.keys():
         kmers_prop[i]/=float(nb_kmers)
@@ -67,14 +68,101 @@ def proportion_along_genome(seq,pas,fenetre,dico_init_kmers,k):
         dico=proportion_of_kmers(len(seq[i:i+fenetre])-k+1,dico)
         liste_prop.append(dico)
     return liste_prop
-        
-print (path_dir)
-k=2
+
+
+def distanceEuclidienne(genome, partieGenome):
+    dist = 0.0
+    for i in genome.keys():
+        dist=dist+((genome[i]-partieGenome[i])**2)
+    return dist
+
+
+def calculeDistanceParties(genome, partiesGenome):
+    distances = []
+    for i in range(len(partiesGenome)):
+        distances.append(distanceEuclidienne(genome, partiesGenome[i]))
+    return distances
+
+"""
+#print (path_dir)
+k=6
 seq = lireSeq(path_dir+"\\seq.fasta")
 alphabet_nt={'A':0,'T':0,'G':0,'C':0}
+
 dico_k_mers=do_dic_kmers(k,alphabet_nt)
 kmers = find_kmers(dico_k_mers,k,seq)
-print kmers
-kmers_prop=proportion_of_kmers(len(seq)-k+1,kmers)
-print kmers_prop
-print len(proportion_along_genome(seq,10000,100000,dico_k_mers,k))
+#print (kmers)
+genome = proportion_of_kmers(len(seq)-k+1, kmers)
+
+parties = proportion_along_genome(seq,10000,100000,dico_k_mers,k)
+
+#print (genome)
+print (len(parties))
+
+distances = calculeDistanceParties(genome, parties)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+x_points = range(0,len(parties))
+y_points = distances
+p = ax.plot(x_points, y_points, 'b')
+ax.set_xlabel('x-points')
+ax.set_ylabel('y-points')
+ax.set_title('Simple XY point plot')
+fig.show()
+
+position = distances.index(max(distances))
+print (position)
+
+partieGenomeDif = seq[position*10000: position*10000+100000]
+#print (len(partieGenomeDif))
+
+#f = open(infile, 'w')
+subParties = proportion_along_genome(partieGenomeDif,100,1000,dico_k_mers,k)
+distances2 = calculeDistanceParties(genome,subParties)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+x_points = range(0,len(subParties))
+y_points = distances2
+p = ax.plot(x_points, y_points, 'b')
+ax.set_xlabel('x-points')
+ax.set_ylabel('y-points')
+ax.set_title('Simple XY point plot')
+fig.show()
+
+position2 = distances2.index(max(distances2))
+print (position2)
+
+pos = (position*10000) + (position2*100)
+
+print (pos)
+
+partieGenomeDif = seq[pos: pos+1000]
+
+len(partieGenomeDif)
+
+subParties = proportion_along_genome(partieGenomeDif,50,100,dico_k_mers,k)
+distances2 = calculeDistanceParties(genome,subParties)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+x_points = range(0,len(subParties))
+y_points = distances2
+p = ax.plot(x_points, y_points, 'b')
+ax.set_xlabel('x-points')
+ax.set_ylabel('y-points')
+ax.set_title('Simple XY point plot')
+fig.show()
+
+position3 = distances2.index(max(distances2))
+print (position3)
+
+pos = (position*10000) + (position2*100) + (position3*50)
+
+print (pos)
+
+partieGenomeDif = seq[pos: pos+100]
+len(partieGenomeDif)
+
+"""
