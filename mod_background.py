@@ -101,6 +101,21 @@ def do_distance_matrix(profils):
             l+=1
         k+=1
     return mat 
+
+def plot_for_each_genome(sub_parts_for_each_genome):
+    fig = plt.figure()
+    number1=np.ceil(np.sqrt(len(sub_parts_for_each_genome)))
+    number2=len(sub_parts_for_each_genome)
+    plt.subplot(number1number1number2)
+    for i in range(len(sub_parts_for_each_genome)):
+        x_points = range(0,len(sub_parts_for_each_genome))
+        y_points =sub_parts_for_each_genome[i]
+        p = ax.plot(x_points, y_points, 'b')
+        ax.set_xlabel('position ')
+        ax.set_ylabel('distance')
+        #ax.set_title('distances entre le profil moy')
+        fig.show()
+        
 """
 #print (path_dir)
 k=6
