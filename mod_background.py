@@ -102,13 +102,20 @@ def do_distance_matrix(profils):
         k+=1
     return mat 
 
+def do_sub_parts(profils,dic_genomes,pas,fenetre,dico_init_kmers,k):
+    dic_sub_parts={}
+    for i in profils.keys():
+        prop=proportion_along_genome(seq,pas,fenetre,dico_init_kmers,k)
+        dic_sub_parts[i]=calculeDistanceParties(genome,prop)
+    return dic_sub_parts
+
 def plot_for_each_genome(sub_parts_for_each_genome):
     fig = plt.figure()
     number1=np.ceil(np.sqrt(len(sub_parts_for_each_genome)))
     number2=len(sub_parts_for_each_genome)
     plt.subplot(number1number1number2)
-    for i in range(len(sub_parts_for_each_genome)):
-        x_points = range(0,len(sub_parts_for_each_genome))
+    for i in sub_parts_for_each_genome.keys():
+        x_points = range(0,len(sub_parts_for_each_genome[i]))
         y_points =sub_parts_for_each_genome[i]
         p = ax.plot(x_points, y_points, 'b')
         ax.set_xlabel('position ')
