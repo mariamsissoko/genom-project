@@ -6,6 +6,7 @@ Created on Thu Nov 24 13:58:47 2016
 """
 import matplotlib.pyplot as plt
 import os
+import numpy as np 
 path_dir = os.getcwd()  
 
 '''
@@ -83,6 +84,23 @@ def calculeDistanceParties(genome, partiesGenome):
         distances.append(distanceEuclidienne(genome, partiesGenome[i]))
     return distances
 
+def do_profils_all_genomes(dic_genomes,dico_k,k):
+    dic_profils={}
+    for i in dic_genomes.keys():
+        dic_kmers=find_kmers(dico_k, k,dic_genomes[i])
+        dic_profils[i]=proportion_of_kmers(len(dic_genomes[i])-k+1,dic_kmers)
+    return dic_profils 
+        
+def do_distance_matrix(profils):
+    mat=np.array(len(profils),len(profils))
+    k=0
+    l=0
+    for i in profils.keys():
+        for j in profils.keys():
+            mat[k][l]=distanceEuclidienne(profils[i],profils[j])
+            l+=1
+        k+=1
+    return mat 
 """
 #print (path_dir)
 k=6
