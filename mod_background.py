@@ -1,3 +1,7 @@
+
+
+
+
 # -*- coding: utf-8 -*-
 """
 Created on Thu Nov 24 13:58:47 2016
@@ -54,6 +58,8 @@ def find_kmers(dico, k, string ):
 
 '''
 Proportion de kmers dans un genome donne
+Input :nombre de kmers dans le genome,dictionnaire de comptage ds kmers 
+Output:Dictionnare contenant la proportion de chaque kmer 
 '''
 def proportion_of_kmers(nb_kmers, dic_kmers):
     kmers_prop=dict(dic_kmers)
@@ -61,6 +67,10 @@ def proportion_of_kmers(nb_kmers, dic_kmers):
         kmers_prop[i]/=float(nb_kmers)
     return kmers_prop
 
+'''
+Fenetre glissante pour calculer la propotion de kmers dans chaque partie du genome
+
+'''
 def proportion_along_genome(seq,pas,fenetre,dico_init_kmers,k):
     liste_prop=[]
     for i in range(0,len(seq)-fenetre,pas):
