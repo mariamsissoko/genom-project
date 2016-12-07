@@ -128,6 +128,7 @@ def transfert_study(dic_profils,dic_parts_genomes,dic_kmers,k):
     matrice = np.eyes(len (dic_profils_part.keys()), len (dic_profils_part.keys()))
     listCles = {}
     cont = 0
+    count+=1
     keys = dic_profils_part.keys()
     for i in keys:
         listCles[i] = cont
