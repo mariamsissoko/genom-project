@@ -123,6 +123,19 @@ def plot_for_each_genome(sub_parts_for_each_genome):
         #ax.set_title('distances entre le profil moy')
         fig.show()
         
+def transfert_study(dic_profils,dic_parts_genomes,dic_kmers,k):
+    dic_profils_part = do_profils_all_genomes(dic_genomes,dic_kmers,k)
+    matrice = np.eyes(len (dic_profils_part.keys()), len (dic_profils_part.keys()))
+    listCles = {}
+    cont = 0
+    keys = dic_profils_part.keys()
+    for i in keys:
+        listCles[i] = cont
+    for i in keys:
+        for j in keys:
+            if i!=j:
+                matrice = distanceEuclidienne(genome[j], partieGenome[i])
+    return matrice 
 """
 #print (path_dir)
 k=6
