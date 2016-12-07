@@ -11,6 +11,7 @@ Created on Thu Nov 24 13:58:47 2016
 import matplotlib.pyplot as plt
 import os
 import numpy as np 
+import rpy 
 path_dir = os.getcwd()  
 
 '''
@@ -160,7 +161,11 @@ def file_result(liste_transfert,liste_genomes_names,file_name):
     for i in range(len(liste_transfert)):
         f.write('for '+liste_genomes_names[i]+' probable tranfert from '+liste_genomes_names[liste_transfert[i]]+'\n')
     return 
-        
+ 
+distance_matrix=r.matrix()
+genome_hclust=r.hclust(distance_matrix)
+r.plot(genom_hclust)
+
 """
 #print (path_dir)
 k=6
