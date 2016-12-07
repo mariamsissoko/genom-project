@@ -137,6 +137,20 @@ def transfert_study(dic_profils,dic_parts_genomes,dic_kmers,k):
             if i!=j:
                 matrice = distanceEuclidienne(genome[j], partieGenome[i])
     return matrice 
+
+def tranfert_study_result(list_genomes_names,matrix):
+    liste_probable_transfert=[]
+    for i in range(len(matrix)):
+        liste_probable_transfert.append(np.argmin(matrix(i)))
+    return liste_probable_transfert 
+
+def file_result(liste_transfert,liste_genomes_names,file_name):
+    f=open(file_name,'w')
+    f.write("result for transfert analysis\n")
+    for i in range(len(liste_transfert)):
+        f.write('for '+liste_genomes_names[i]+' probable tranfert from '+liste_genomes_names[liste_transfert[i]]+'\n')
+    return 
+        
 """
 #print (path_dir)
 k=6
