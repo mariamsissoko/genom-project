@@ -161,8 +161,19 @@ def file_result(liste_transfert,liste_genomes_names,file_name):
     for i in range(len(liste_transfert)):
         f.write('for '+liste_genomes_names[i]+' probable tranfert from '+liste_genomes_names[liste_transfert[i]]+'\n')
     return 
- 
-distance_matrix=r.matrix()
+
+def do_data_matrix(profils_genomes,nb_kmers)
+    data_matrix=np.zeros(len(profils_genomes),nb_kmers+1)
+    liste=profil_genomes.keys()
+    for i in profils_genomes.keys():
+        data_matrix[liste.index(i),0]=i
+        for j in range(1,len(profils_genomes[i])+1):
+             data_matrix[liste.index(i),j]=profils_genomes[i][j]
+    return data_matrix 
+            
+    
+data_matrix=do_data_matrix()
+distance_matrix=r.dist(as.matrix(data_matrix))
 genome_hclust=r.hclust(distance_matrix)
 r.plot(genom_hclust)
 
