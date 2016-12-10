@@ -155,11 +155,26 @@ def tranfert_study_result(list_genomes_names,matrix):
         liste_probable_transfert.append(np.argmin(matrix(i)))
     return liste_probable_transfert 
 
-def file_result(liste_transfert,liste_genomes_names,file_name):
+def read_file(file_name):
+    f=open(file_name)
+    ligne=f.readline()
+    dic_type={}
+    while len(ligne)>0:
+        ligne=ligne.split(' ')
+        name=""
+        for i in range(len(ligne)-1):
+            name=name+ligne[i]+" "
+        name=name[0:len(name)-1]
+        dic_type[name]=ligne[len(ligne)-1][0:len(ligne[len(ligne)-1])-1]
+        ligne=f.readline()
+    return dic_type
+
+def file_result(liste_transfert,liste_genomes_names,dic_type,file_name):
     f=open(file_name,'w')
     f.write("result for transfert analysis\n")
     for i in range(len(liste_transfert)):
         f.write('for '+liste_genomes_names[i]+' probable tranfert from '+liste_genomes_names[liste_transfert[i]]+'\n')
+        f.write('transfert from '+dic_type[liste_genomes_names[i]]+' to '+dic_type[liste_genomes_names[liste_transfert[i]]]+'\n\n')
     return 
 
 def do_data_matrix(profils_genomes,nb_kmers)
