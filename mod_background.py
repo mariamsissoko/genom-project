@@ -192,6 +192,35 @@ distance_matrix=r.dist(as.matrix(data_matrix))
 genome_hclust=r.hclust(distance_matrix)
 r.plot(genom_hclust)
 
+def predict_Genome(dic_profils,dic_genomes,dic_kmers,k):
+    listDist=[]
+    genome=random.choice(dic_genomes.keys())
+    posGenome=random.randint(0,len(dic_genomes[genome])-1500)
+    boutGenome=[genome,dic_genomes[genome][posGenome:posGenome+1500]]
+    profil_boutGenome=find_kmers(dic_kmers, k, boutGenome)
+    profil_boutGenome=proportion_of_kmers(len(boutGenome)-k+1, dic_kmers)
+    keys=dic_genomes.keys()
+    for j in keys:
+        listDist.append(distanceEuclidienne(dic_profils[j],profil_boutGenome))
+    boutGenome.append(keys[listDist.index(min(listDist))])
+    return boutGenome
+    
+def experiment(dic_profils,dic_genomes,dic_kmers,k,exp):
+    vectResult=[]
+    for i in range(exp):
+        res=predict_Genome(dic_profils,dic_genomes,dic_kmers,k)
+        if res[0]==res[2]:
+            vectResult.append(1)
+        else:
+            vectResult.append(0)
+    return vectResult
+
+def errorRate(vectResult):
+    rate=0
+    for i in range(len(vectResult)):
+        if vectResult[i]==0:
+            rate+=1
+    return rate/float(len(vectResult))
 """
 #print (path_dir)
 k=6
