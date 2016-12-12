@@ -136,6 +136,20 @@ def do_sub_parts(profils, dic_genomes, pas, fenetre, dico_init_kmers, k):
         print (scp.mannwhitneyu(profils[i], prop, use_continuity=True))
     return dic_sub_parts
 
+def do_mean_sub_parts(dic_sub_parts):
+    dic_mean={}
+    for i in dic_sub_parts.keys():
+        dic_mean[i]=sum(dic_sub_parts[i])/len(dic_sub_parts[i])
+    return dic_mean 
+
+def do_sd_sub_parts(dic_sub_parts,dic_means):
+    dic_sd={}
+    for i in dic_sub_parts.keys():
+        for j in dic_sub_parts[i]
+            dic_sd[i]=dic_sd[i]+(dic_sub_parts[i][j]-dic_mean[i])**2
+        dic_sd[i]=dic_sd[i]/(len(dic_sub_parts[i])-1)
+    return dic_sd 
+        
 def get_partieDif_all_genomes(genomes, positions, pas, fenetre, cont):
     partieDif = {}
     try:
